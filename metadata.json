@@ -1,0 +1,6 @@
+{
+  "name": "The Hub",
+  "description": "A high-performance autonomous logistics ecosystem and passenger transit mobility platform matching heavy freight, couriers, and premium vehicle networks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

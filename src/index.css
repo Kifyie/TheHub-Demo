@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary-container: #ff5545;
+  --color-on-primary-container: #5c0002;
+  --color-background-dark: #131313;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-on-surface-variant: #e7bdb7;
+  --color-outline-variant: #5d3f3b;
+}
+
+@layer base {
+  body {
+    background-color: #131313;
+    color: #e5e2e1;
+    font-family: var(--font-sans);
+  }
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(255, 85, 69, 0.4);
+}
+
+.bg-gradient-overlay {
+  background: linear-gradient(to right, rgba(19, 19, 19, 0.95) 0%, rgba(19, 19, 19, 0.6) 50%, rgba(19, 19, 19, 0.2) 100%);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1c1b1b;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff5545;
+}
