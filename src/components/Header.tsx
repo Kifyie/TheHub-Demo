@@ -4,15 +4,16 @@
  */
 
 import { useState } from 'react';
-import { Menu, X, Radio } from 'lucide-react';
+import { Menu, X, Radio, Car, Truck } from 'lucide-react';
 
 interface HeaderProps {
   currentTab: string;
   setTab: (tab: string) => void;
   onDeployFleet: () => void;
+  onLaunchApp?: (category: 'transit' | 'courier' | 'logistics') => void;
 }
 
-export default function Header({ currentTab, setTab, onDeployFleet }: HeaderProps) {
+export default function Header({ currentTab, setTab, onDeployFleet, onLaunchApp }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
@@ -92,24 +93,40 @@ export default function Header({ currentTab, setTab, onDeployFleet }: HeaderProp
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="absolute top-20 left-0 w-full bg-[#131313]/95 backdrop-blur-xl border-b border-white/[0.06] flex flex-col p-6 gap-4 md:hidden animate-in fade-in slide-in-from-top-4 duration-200">
-          {tabs.map((tab) => {
-            const isActive = currentTab === tab.id;
-            return (
+        <div className="absolute top-20 left-0 w-full bg-[#131313]/98 backdrop-blur-2xl border-b border-white/[0.08] flex flex-col p-6 gap-5 md:hidden animate-in fade-in slide-in-from-top-4 duration-200 shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] font-mono font-black text-[#ff5545] uppercase tracking-[0.25em] block mb-2 text-glow">
+              LAUNCH HUB APPS
+            </span>
+            <div className="grid grid-cols-2 gap-3">
               <button
-                key={tab.id}
                 onClick={() => {
-                  setTab(tab.id);
+                  if (onLaunchApp) onLaunchApp('transit');
                   setMobileMenuOpen(false);
                 }}
-                className={`text-left font-sans text-sm font-bold tracking-widest py-2 border-b border-outline-variant/20 uppercase transition-all ${
-                  isActive ? 'text-primary-container pl-2 border-l-2 border-primary-container' : 'text-on-surface-variant'
-                }`}
+                className="flex items-center gap-2 px-4 py-4 bg-[#ff5545] hover:bg-[#ff6c5e] text-white rounded-xl active:scale-95 transition-all text-left cursor-pointer shadow-lg shadow-black/40"
               >
-                {tab.label}
+                <Car size={18} className="shrink-0 text-white" />
+                <div className="min-w-0">
+                  <span className="text-[11px] font-black tracking-wider uppercase block leading-none">Rides App</span>
+                  <span className="text-[8px] text-white/75 font-mono mt-1 block leading-none">Book Cab & SUV</span>
+                </div>
               </button>
-            );
-          })}
+              <button
+                onClick={() => {
+                  if (onLaunchApp) onLaunchApp('logistics');
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-4 bg-neutral-900 border border-white/10 text-white hover:border-white/25 rounded-xl active:scale-95 transition-all text-left hover:bg-neutral-800 cursor-pointer shadow-lg shadow-black/40"
+              >
+                <Truck size={18} className="shrink-0 text-[#ff5545]" />
+                <div className="min-w-0">
+                  <span className="text-[11px] font-black tracking-wider uppercase block leading-none">Logistics</span>
+                  <span className="text-[8px] text-neutral-400 font-mono mt-1 block leading-none">Cargo Loader</span>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </header>

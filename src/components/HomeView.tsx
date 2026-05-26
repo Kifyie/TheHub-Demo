@@ -12,11 +12,21 @@ import { ContainerScroll } from './ui/container-scroll-animation';
 interface HomeViewProps {
   setTab: (tab: string) => void;
   onDeployFleet: () => void;
+  isMobile?: boolean;
+  onTriggerPopup?: () => void;
 }
 
-export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
+export default function HomeView({ setTab, onDeployFleet, isMobile, onTriggerPopup }: HomeViewProps) {
   const [stats, setStats] = useState(DEFAULT_STATS);
   const [loadPercent, setLoadPercent] = useState(75);
+
+  const handleAction = (fallbackTab: string) => {
+    if (isMobile && onTriggerPopup) {
+      onTriggerPopup();
+    } else {
+      setTab(fallbackTab);
+    }
+  };
 
   // Scroll Parallax Hooks for high performance smooth scroll effects
   const { scrollY } = useScroll();
@@ -59,13 +69,13 @@ export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full sm:w-auto px-4 z-30 pointer-events-auto">
                 <button
-                  onClick={() => setTab('SERVICES')}
+                  onClick={() => handleAction('SERVICES')}
                   className="bg-primary-container text-white text-[12px] font-bold tracking-widest px-8 py-4 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase shadow-[0_4px_16px_rgba(255,85,69,0.35)] cursor-pointer"
                 >
                   BOOK CAB / LOADER
                 </button>
                 <button
-                  onClick={() => setTab('LOGISTICS')}
+                  onClick={() => handleAction('LOGISTICS')}
                   className="border border-white/40 bg-white/[0.04] backdrop-blur-md text-white text-[12px] font-bold tracking-widest px-8 py-4 rounded-full hover:bg-white hover:text-[#131313] active:scale-95 transition-all uppercase cursor-pointer"
                 >
                   TRACK GOODS DELIVERY
@@ -232,7 +242,7 @@ export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
                 <div className="flex justify-between items-center pt-4 border-t border-white/[0.08]">
                   <span className="text-neutral-500 font-mono text-[9px] uppercase tracking-wider">BOOK PASSENGER CAB / FREIGHT GOODS LOADER</span>
                   <button 
-                    onClick={() => setTab('SERVICES')}
+                    onClick={() => handleAction('SERVICES')}
                     className="flex items-center gap-1 text-xs font-bold text-primary-container hover:text-white uppercase tracking-widest font-mono transition-colors cursor-pointer"
                   >
                     <span>GO TO SERVICES</span>
@@ -291,7 +301,7 @@ export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
           
           {/* Autonomous Logistics (Main Large Card - spans 8 cols) */}
           <div 
-            onClick={() => setTab('LOGISTICS')}
+            onClick={() => handleAction('LOGISTICS')}
             className="md:col-span-8 bg-white/[0.05] backdrop-blur-xl border border-white/[0.12] hover:bg-white/[0.08] hover:border-primary-container p-8 md:p-10 rounded-3xl flex flex-col justify-between relative overflow-hidden group cursor-pointer transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.3)] min-h-[350px]"
           >
             {/* Visual background image representing logistics loader */}
@@ -380,7 +390,7 @@ export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
             </div>
             <div className="relative z-10">
               <button 
-                onClick={() => setTab('SERVICES')}
+                onClick={() => handleAction('SERVICES')}
                 className="border-b border-primary-container pb-1 text-left font-sans text-xs font-bold text-primary-container hover:text-white hover:border-white transition-all w-max uppercase tracking-widest cursor-pointer"
               >
                 BOOK CAB ONLINE
@@ -710,13 +720,13 @@ export default function HomeView({ setTab, onDeployFleet }: HomeViewProps) {
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
             <button
-              onClick={() => setTab('SERVICES')}
+              onClick={() => handleAction('SERVICES')}
               className="bg-[#131313] text-white px-8 py-4 rounded-full font-bold tracking-widest hover:bg-[#201f1f] active:scale-95 transition-all uppercase text-[11px] shadow-lg"
             >
               BOOK SECURE CAB
             </button>
             <button
-              onClick={() => setTab('LOGISTICS')}
+              onClick={() => handleAction('LOGISTICS')}
               className="border-2 border-[#131313] text-[#131313] px-8 py-4 rounded-full font-bold tracking-widest hover:bg-[#131313] hover:text-white active:scale-95 transition-all uppercase text-[11px]"
             >
               TRACK EXISTING CARGO

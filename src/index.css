@@ -33,12 +33,15 @@
   background: linear-gradient(to right, rgba(19, 19, 19, 0.95) 0%, rgba(19, 19, 19, 0.6) 50%, rgba(19, 19, 19, 0.2) 100%);
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+/* Disable and hide scrollbars completely from everywhere */
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #1c1b1b;
+
+* {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #ff5545;
-}
+
